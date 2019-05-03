@@ -6,6 +6,7 @@ xterm  -e  " roslaunch turtlebot_gazebo turtlebot_world.launch world_file:=$WORK
 sleep 5
 xterm  -e  " roslaunch turtlebot_navigation amcl_demo.launch map_file:=$WORKSPACE_DIR/src/map/map.yaml 3d_sensor:=r200 initial_pose_a:=4.7124" &
 sleep 5
-xterm  -e  " roslaunch turtlebot_rviz_launchers view_navigation.launch" &
-sleep 5
-xterm -e " rosrun pick_objects pick_objects"
+xterm -e " rosrun add_markers add_markers _param:=timed" &
+sleep 1
+xterm  -e  " roslaunch turtlebot_rviz_launchers view_navigation.launch"
+

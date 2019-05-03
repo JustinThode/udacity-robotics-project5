@@ -2,6 +2,11 @@
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 
+constexpr float pickX = 6.0F;
+constexpr float pickY = -8.0F;
+constexpr float dropX = 6.0F;
+constexpr float dropY = -4.0F;
+
 // Define a client for to send goal requests to the move_base server through a SimpleActionClient
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
@@ -17,6 +22,11 @@ int main(int argc, char** argv){
     ROS_INFO("Waiting for the move_base action server to come up");
   }
 
+  ROS_INFO("pickX %f", pickX);
+  ROS_INFO("pickY %f", pickY);
+  ROS_INFO("dropX %f", dropX);
+  ROS_INFO("dropY %f", dropY);
+
   std::vector<move_base_msgs::MoveBaseGoal> goals;
 
   move_base_msgs::MoveBaseGoal goal;
@@ -28,12 +38,14 @@ int main(int argc, char** argv){
   // Define a position and orientation for the robot to reach
 
   // add first goal
-  goal.target_pose.pose.position.x = 1.0;
+  goal.target_pose.pose.position.x = pickX;
+  goal.target_pose.pose.position.y = pickY;
   goal.target_pose.pose.orientation.w = 1.0;
   goals.push_back(goal);
   
   // add second goal
-  goal.target_pose.pose.position.x = 2.0;
+  goal.target_pose.pose.position.x = dropX;
+  goal.target_pose.pose.position.y = dropY;
   goal.target_pose.pose.orientation.w = 1.0;
   goals.push_back(goal);
 
