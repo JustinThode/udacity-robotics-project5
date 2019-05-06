@@ -9,16 +9,14 @@ The gazebo world was created using the building editor. The map is asymmetric an
 A Turtlebot is used as the mobile robot, which provides odometry and a horizontal 2D laser scanner.
 
 ## Localization
-Localisation is achieved with the ROS amcl_node. AMCL (Adaptive Monte Carlo Localization) makes use of a particle filter, which continually evaluates and updates a list of randomly placed potential poses. Evaluation of each pose is done by comparing the laser scan projected from that pose with the map, resulting in the likelihood of the pose being correct. The particle filter poses should quickly group around the true robot pose, if AMCL was set up correctly. 
+Localisation is achieved with the gmapping package. This uses AMCL (Adaptive Monte Carlo Localization) that has a particle filter, which continually evaluates and updates a list of randomly placed potential poses. Evaluation of each pose is done by comparing the laser scan projected from that pose with the map, resulting in the likelihood of the pose being correct. The particle filter poses should quickly group around the true robot pose, if AMCL was set up correctly. 
 
 Important parameters for getting AMCL to work properly are odometry noise and odometry turn noise.
 
-The map used for AMCL was created using pgm_map_creator on the gazebo world file that has the building in it.
+The map used for AMCL was created using pgm_map_creator on the gazebo world file that has the building in it. The map can also be created used the SLAM mode in the gmapping package, building up the 2D map from odometry and laser scans.
 
 ## Navigation
-Navigation is achieved with the move_base node.
-
-which uses Dijkstra's Shortest Path First algorithm on a global scale to get to the target as well as at a local scale for obstacle avoidance.
+Navigation is achieved with the move_base node, which takes localization from the gmapping node and drives the robot to a target. The path to the target is determined using Dijkstra's Shortest Path First algorithm. A global scale path is created using the map, and a local path is created using laser scans for obstacle avoidance. The result is that the robot travels to the target while staying a minimum distance from mapped and unmapped obstacles.
 
 Important parameters for good results with move_base include the robot size, turn speed and move speed.
 
