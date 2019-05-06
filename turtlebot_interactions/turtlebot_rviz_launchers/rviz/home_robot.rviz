@@ -495,7 +495,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/Marker
       Enabled: true
-      Marker Topic: /visualization_marker
+      Marker Topic: /add_markers/visualization_marker
       Name: Marker
       Namespaces:
         add_markers: true

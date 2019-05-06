@@ -53,7 +53,7 @@ int main( int argc, char** argv )
 {
   ros::init(argc, argv, "add_markers");
   ros::NodeHandle nh("~");
-  ros::Rate r(1);
+  ros::Rate rate(1);
   marker_pub = nh.advertise<visualization_msgs::Marker>("visualization_marker", 1);
 
   std::string param;
@@ -125,7 +125,7 @@ int main( int argc, char** argv )
     if (param == "timed")
     {
       sleep(5);
-      ROS_INFO("Disappear");
+      ROS_INFO("Picked up");
       marker.color.a = 0.0;
       marker_pub.publish(marker);
       sleep(5);
